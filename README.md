@@ -1,14 +1,14 @@
-# ziti-mattermost-action-py
-GitHub Action that posts to a Mattermost webhook endpoint over OpenZiti
+# ziti-webhook-action-py
+GitHub Action that sends a GitHub webhook over OpenZiti with Python
 
-This GitHub workflow action uses [Ziti Python SDK](https://github.com/openziti/ziti-sdk-py) to post an event's payload information to a [Mattermost](https://mattermost.com/) instance over a `Ziti` connection. This allows the Mattermost server to remain private, i.e. not directly exposed to the internet.
+This GitHub workflow action uses [Ziti Python SDK](https://github.com/openziti/ziti-sdk-py) to post the GitHub event's payload information to a private server over a `Ziti` connection.
 
 ## Usage
 
 See [action.yml](action.yml) for descriptions of all available inputs.
 
 ```yml
-name: ziti-mattermost-action-py
+name: ziti-webhook-action-py
 on:
   create:
   delete:
@@ -25,16 +25,16 @@ on:
 jobs:
   ziti-webhook:
     runs-on: ubuntu-latest
-    name: Ziti Mattermost Action - Py
+    name: Ziti Webhook Job
     steps:
-    - uses: openziti/ziti-mattermost-action-py@v1
+    - uses: openziti/ziti-webhook-action-py@v1
       with:
         # Identity JSON containing key to access a Ziti network
         zitiId: ${{ secrets.ZITI_MATTERMOST_IDENTITY }}
 
         # URL to post the payload. Note that the `zitiId` must provide access to a service 
-        # intercepting `my-mattermost-ziti-server`
-        webhookUrl: 'https://{my-mattermost-ziti-server}/hook/{my-mattermost-webhook-id}}'
+        # intercepting `my-webhook-ziti-server`
+        webhookUrl: https://{my-webhook-server}/plugins/github/webhook
 
         eventJson: ${{ toJson(github.event) }}
         senderUsername: "GitHubZ"

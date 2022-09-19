@@ -1,30 +1,18 @@
-name: 'Ziti Mattermost Action - Python'
-description: 'POST to Mattermost wWebhook endpoint over a Ziti network'
+name: Ziti Webhook Action - Python
+description: POST the GitHub webhook payload over a Ziti network
 branding:
-  icon: 'zap'  
-  color: 'red'
+  icon: zap
+  color: red
 inputs:
   zitiId:
-    description: 'Identity JSON for an enrolled Ziti endpoint'
+    description: Identity JSON for an enrolled Ziti endpoint
     required: true
   webhookUrl:
-    description: 'URL for posting the payload'
+    description: Ziti URL for posting the payload
     required: true
   eventJson:
-    description: 'GitHub event JSON (github.event)'
+    description: GitHub event JSON (github.event)
     required: true
-  senderUsername:
-    description: 'Mattermost username'
-    required: false
-    default: "GithubZ"
-  senderIconUrl:
-    description: 'Mattermost user icon URL'
-    required: false
-    default: "https://github.com/fluidicon.png"
-  destChannel:
-    description: 'Mattermost channel'
-    required: false
-    default: "dev-notifications"
 runs:
   using: "docker"
   image: "Dockerfile"
