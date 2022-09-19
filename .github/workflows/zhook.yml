@@ -29,6 +29,5 @@ jobs:
         || (github.event_name == 'pull_request_review' && github.event.review.state == 'approved'))
       with:
         zitiId: ${{ secrets.ZITI_WEBHOOK_IDENTITY }}
-        # webhookUrl: http://httpbin.ziti/post
-        webhookUrl: http://webhookz.ziti/post
+        webhookUrl: http://httpbin.ziti/post
         eventJson: ${{ toJson(github.event) }}
