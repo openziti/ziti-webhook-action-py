@@ -1,4 +1,4 @@
-name: mattermost-ziti-webhook
+name: github-ziti-webhook
 on:
   issues:
   issue_comment:
