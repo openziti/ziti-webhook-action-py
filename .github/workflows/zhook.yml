@@ -14,17 +14,20 @@ on:
   workflow_dispatch:
 
 jobs:
-  mattermost-ziti-webhook:
+  github-ziti-webhook:
     runs-on: ubuntu-latest
     name: POST Webhook
     steps:
-    # - uses: openziti/ziti-mattermost-action-py@main
+    - name: Checkout Project
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
     - uses: ./  # uses self to surface any issues in current branch
       if: |
         github.repository_owner == 'openziti'
         && ((github.event_name != 'pull_request_review')
         || (github.event_name == 'pull_request_review' && github.event.review.state == 'approved'))
       with:
-        zitiId: ${{ secrets.ZITI_MATTERMOST_IDENTITY }}
+        zitiId: ${{ secrets.ZITI_WEBHOOK_IDENTITY }}
         webhookUrl: http://httpbin.ziti/post
         eventJson: ${{ toJson(github.event) }}
