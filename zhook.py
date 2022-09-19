@@ -10,8 +10,6 @@ class GithubWebhookBody:
   def __init__(self, eventJsonStr):
     self.eventJsonStr = eventJsonStr
     self.eventJson = json.loads(eventJsonStr)
-    # self.repoJson = self.eventJson["repository"]
-    # self.senderJson = self.eventJson["sender"]
 
     self.body = self.eventJson
     # self.body["inputs"] = self.inputs
@@ -27,7 +25,7 @@ if __name__ == '__main__':
   eventJsonStr = os.getenv("INPUT_EVENTJSON")
 
   # Setup Ziti identity
-  os.environ["ZITI_LOG"] = str(4)
+  # os.environ["ZITI_LOG"] = str(4)
   idFilename = "id.json"
   with open(idFilename, 'w') as f:
     f.write(zitiId)
