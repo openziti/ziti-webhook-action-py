@@ -27,11 +27,11 @@ if __name__ == '__main__':
   eventJsonStr = os.getenv("INPUT_EVENTJSON")
 
   # Setup Ziti identity
-  idFilename = "id.json"
-  os.environ["ZITI_IDENTITIES"] = idFilename
   os.environ["ZITI_LOG"] = str(4)
+  idFilename = "id.json"
   with open(idFilename, 'w') as f:
     f.write(zitiId)
+  openziti.load(idFilename)
 
   # Create webhook body
   try:
@@ -46,11 +46,7 @@ if __name__ == '__main__':
   print(f"{data}")
 
   with openziti.monkeypatch():
-    try:
-      r = requests.post(url, headers=headers, data=data)
-      print(f"Response Status: {r.status_code}")
-      print(r.headers)
-      print(r.content)
-    except Exception as e:
-      print(f"Exception posting webhook: {e}")
-      sys.exit(-1)
+    r = requests.post(url, headers=headers, data=data)
+    print(f"Response Status: {r.status_code}")
+    print(r.headers)
+    print(r.content)
