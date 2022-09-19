@@ -29,6 +29,7 @@ if __name__ == '__main__':
   # Setup Ziti identity
   idFilename = "id.json"
   os.environ["ZITI_IDENTITIES"] = idFilename
+  os.environ["ZITI_LOG"] = 4
   with open(idFilename, 'w') as f:
     f.write(zitiId)
 
